@@ -8,16 +8,13 @@ The service offers only two endpoints:
 1. `localhost:8080/deposit` HTTP POST endpoint for user to deposit money. This endpoint takes JSON data containing the *wallet_id*, and the *amount* of the deposit and emits it to Kafka.
 2. `localhost:8080/check/{wallet_id}` HTTP GET endpoint to get the balance of the wallet, also a flag whether the wallet has ever done one or more deposits with amounts more than 10,000 within a single 2-minute window (rolling-period). The *wallet_id* in the URLs refers to the wallet id.
 
-This service will be built in the following steps, building the pipeline between both endpoints:
-
-1. Start with a simple implementation that collects emitted deposit in a balance table.
-2. Next, we add the capability of flagging above-threshold deposit.
-
 In building this, we will follow the following architecture requirements:
 
 1. Use [Goka](https://github.com/lovoo/goka), a stream processing library for [Apache Kafka] written in Go.
 2. Use [protobuf](https://developers.google.com/protocol-buffers/docs/gotutorial) when encoding/decoding payload to/from Kafka broker.
 3. Use Goka's Local storage mechanism.
+
+To run the project, you can follow [this](https://github.com/dinorain/depositaja#running-the-project).
 
 ## Basic components and features
 
@@ -118,7 +115,7 @@ $ curl localhost:8080/0x1a3565a67721b6ab46fB11d5CF33A72D871aEbA3/feed
 ```
 
 The handler employs a view on `collector.Table` to retrieve the messages for Dustin.
-It gets the wallet_id from the URL and tries to get the value from the view.
+It gets the *wallet_id* from the URL and tries to get the value from the view.
 If no value is available, the user has received no messages yet.
 Otherwise, the handler loops over the messages, calculate the balance, check if the wallet deposit is above the threshold, and formats the output.
 
@@ -236,16 +233,15 @@ At this point, let's make a short recap. So far we have created:
 
 ### Running the project
 
-To make the system run, You can start emitter, processor, and view all in the same Go program, but that would make the system inflexible because we cannot scale the components independently.
-We can also have each component running in its own Go program, but that may complicate deployment.
 In this project, we can put the endpoint handlers and, consequently, emitter and view in the same Go program.
-In another Go program, we start the collector processor.
-This solution allows us to start, stop, and scale them independently.
+In another Go program, we start the collector processor. This will allows us to start, stop, and scale them independently.
 
 Before starting any Go program, run `make start` to start Docker containers for ZooKeeper and Kafka.
 
+Make sure you [create](https://docs.confluent.io/5.5.4/quickstart/cos-docker-quickstart.html#step-2-create-ak-topics) the required Kafka topics.
+
 ```sh
-make service # to start endpoint handlers, emitter and view
+make dev # to start endpoint handlers, emitter and view
 ```
 
 In another terminal, start the processor:

@@ -5,7 +5,7 @@ dep:
 	go mod tidy
 	go mod vendor
 
-service:
+dev:
 	go run cmd/service/main.go
 
 processor:
