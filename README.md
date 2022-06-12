@@ -23,8 +23,6 @@ The following figure depicts the design used in this project, using those three 
 
 ![Architecture](figs/arch.jpg)
 
-The architecture here follows the approach in [this blog post](https://tech.lovoo.com/2017/05/23/goka/).
-
 ### Deposit endpoint
 
 The main message type we will be dealing with is the [`depositRequest`](service/service.go#L19) type:
