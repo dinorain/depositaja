@@ -10,7 +10,7 @@ The service offers only two endpoints:
 
 In building this, we will follow the following architecture requirements:
 
-1. Use [Goka](https://github.com/lovoo/goka), a stream processing library for [Apache Kafka] written in Go.
+1. Use [Goka](https://github.com/lovoo/goka), a stream processing library for [Apache Kafka](https://kafka.apache.org/) written in Go.
 2. Use [protobuf](https://developers.google.com/protocol-buffers/docs/gotutorial) when encoding/decoding payload to/from Kafka broker.
 3. Use Goka's Local storage mechanism.
 
