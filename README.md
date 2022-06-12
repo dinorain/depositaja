@@ -18,6 +18,13 @@ To run the project, you can follow [this](https://github.com/dinorain/depositaja
 
 ## Basic components and features
 
+Goka provides three components to build systems: emitters, processors, and views.
+The following figure depicts the design used in this project, using those three components together with Kafka and the endpoints.
+
+![Architecture](figs/arch.jpg)
+
+The architecture here follows the approach in [this blog post](https://tech.lovoo.com/2017/05/23/goka/).
+
 ### Deposit endpoint
 
 The main message type we will be dealing with is the [`depositRequest`](service/service.go#L19) type:
