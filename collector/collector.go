@@ -3,9 +3,10 @@ package collector
 import (
 	"context"
 
+	"github.com/lovoo/goka"
+
 	"github.com/dinorain/depositaja"
 	"github.com/dinorain/depositaja/pb"
-	"github.com/lovoo/goka"
 )
 
 var (

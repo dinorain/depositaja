@@ -1,9 +1,10 @@
 package depositaja
 
 import (
-	"github.com/dinorain/depositaja/pb"
 	"github.com/lovoo/goka"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/dinorain/depositaja/pb"
 )
 
 var (
