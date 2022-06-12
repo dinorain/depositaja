@@ -1,0 +1,25 @@
+// To get an in-depth walk-through of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// [START declaration]
+syntax = "proto3";
+
+// [END declaration]
+
+// [START go_declaration]
+option go_package = "./pb";
+// [END go_declaration]
+
+// [START messages]
+
+message FlagEvent {
+  bool flag_removed = 1;
+  int64 rolling_period_start_unix = 2;
+}
+
+message FlagValue {
+  bool flagged = 1;
+  int64 rolling_period_start_unix = 2;
+}
+
+// [END messages]

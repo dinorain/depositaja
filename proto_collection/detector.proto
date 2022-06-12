@@ -1,0 +1,19 @@
+// To get an in-depth walk-through of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// [START declaration]
+syntax = "proto3";
+
+// [END declaration]
+
+// [START go_declaration]
+option go_package = "./pb";
+// [END go_declaration]
+
+// [START messages]
+message Counter {
+  int64 rolling_period_start_unix = 1;
+  double received = 2;
+}
+
+// [END messages]

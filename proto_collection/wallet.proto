@@ -1,0 +1,24 @@
+// To get an in-depth walk-through of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// [START declaration]
+syntax = "proto3";
+
+// [END declaration]
+
+// [START go_declaration]
+option go_package = "./pb";
+// [END go_declaration]
+
+// [START messages]
+message Deposit {
+  string wallet_id = 1;
+  double amount = 2;
+}
+
+message DepositHistory {
+  string wallet_id = 1;
+  repeated Deposit deposits = 2;
+}
+
+// [END messages]
