@@ -11,6 +11,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/dinorain/depositaja/collector"
+	"github.com/dinorain/depositaja/detector"
 	"github.com/dinorain/depositaja/flagger"
 )
 
@@ -18,6 +19,7 @@ var (
 	brokers      = []string{"localhost:9092"}
 	runCollector = flag.Bool("collector", false, "run collector processor")
 	runFlagger   = flag.Bool("flagger", false, "run flagger processor")
+	runDetector  = flag.Bool("detector", false, "run detector processor")
 )
 
 func main() {
@@ -32,6 +34,10 @@ func main() {
 	if *runFlagger {
 		log.Println("starting flagger")
 		grp.Go(flagger.Run(ctx, brokers))
+	}
+	if *runDetector {
+		log.Println("starting detector")
+		grp.Go(detector.Run(ctx, brokers))
 	}
 
 	// Wait for SIGINT/SIGTERM
