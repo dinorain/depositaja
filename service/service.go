@@ -7,12 +7,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dinorain/depositaja"
-
 	"github.com/gorilla/mux"
 	"github.com/lovoo/goka"
 
+	"github.com/dinorain/depositaja"
 	"github.com/dinorain/depositaja/collector"
+	"github.com/dinorain/depositaja/flagger"
 	"github.com/dinorain/depositaja/pb"
 )
 
@@ -46,6 +46,12 @@ func Run(brokers []string, stream goka.Stream) {
 	}
 	go view.Run(context.Background())
 
+	flaggerView, err := goka.NewView(brokers, flagger.Table, new(flagger.FlagValueCodec))
+	if err != nil {
+		panic(err)
+	}
+	go flaggerView.Run(context.Background())
+
 	emitter, err := goka.NewEmitter(brokers, stream, new(depositaja.DepositCodec))
 	if err != nil {
 		panic(err)
@@ -54,7 +60,7 @@ func Run(brokers []string, stream goka.Stream) {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/deposit", deposit(emitter, stream)).Methods("POST")
-	router.HandleFunc("/check/{wallet_id}", check(view)).Methods("GET")
+	router.HandleFunc("/check/{wallet_id}", check(view, flaggerView)).Methods("GET")
 
 	log.Printf("Listen port 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
@@ -106,7 +112,7 @@ func deposit(emitter *goka.Emitter, stream goka.Stream) func(w http.ResponseWrit
 	}
 }
 
-func check(view *goka.View) func(w http.ResponseWriter, r *http.Request) {
+func check(view *goka.View, flaggerView *goka.View) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		walletID := mux.Vars(r)["wallet_id"]
 
@@ -131,6 +137,12 @@ func check(view *goka.View) func(w http.ResponseWriter, r *http.Request) {
 		for _, m := range messages.Deposits {
 			totalBalance += m.Amount
 			// log.Printf("%d %10s: %v\n", i, m.WalletID, m.Amount)
+		}
+
+		flaggerVal, _ := flaggerView.Get(walletID)
+		if flaggerVal != nil {
+			b := flaggerVal.(*pb.FlagValue)
+			aboveThreshold = b.Flagged
 		}
 
 		// log.Printf("Balance: %v\n", totalBalance)
