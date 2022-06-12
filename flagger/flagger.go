@@ -37,7 +37,7 @@ func (c *FlagValueCodec) Decode(data []byte) (interface{}, error) {
 	return &m, proto.Unmarshal(data, &m)
 }
 
-func block(ctx goka.Context, msg interface{}) {
+func flag(ctx goka.Context, msg interface{}) {
 	var s *pb.FlagValue
 	if v := ctx.Value(); v == nil {
 		s = new(pb.FlagValue)
@@ -45,13 +45,13 @@ func block(ctx goka.Context, msg interface{}) {
 		s = v.(*pb.FlagValue)
 	}
 
-	blockEvent := msg.(*pb.FlagEvent)
-	if blockEvent.FlagRemoved {
+	flagEvent := msg.(*pb.FlagEvent)
+	if flagEvent.FlagRemoved {
 		s.Flagged = false
 		s.RollingPeriodStartUnix = 0
 	} else {
 		s.Flagged = true
-		s.RollingPeriodStartUnix = blockEvent.RollingPeriodStartUnix
+		s.RollingPeriodStartUnix = flagEvent.RollingPeriodStartUnix
 	}
 	ctx.SetValue(s)
 }
@@ -59,7 +59,7 @@ func block(ctx goka.Context, msg interface{}) {
 func Run(ctx context.Context, brokers []string) func() error {
 	return func() error {
 		g := goka.DefineGroup(group,
-			goka.Input(Stream, new(FlagEventCodec), block),
+			goka.Input(Stream, new(FlagEventCodec), flag),
 			goka.Persist(new(FlagValueCodec)),
 		)
 		p, err := goka.NewProcessor(brokers, g)

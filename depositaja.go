@@ -8,8 +8,7 @@ import (
 )
 
 var (
-	DepositStream  goka.Stream = "deposit"
-	WithdrawStream goka.Stream = "withdraw"
+	DepositStream goka.Stream = "deposit"
 )
 
 type DepositCodec struct{}

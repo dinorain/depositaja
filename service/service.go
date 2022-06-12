@@ -127,7 +127,7 @@ func check(view *goka.View, flaggerView *goka.View) func(w http.ResponseWriter, 
 
 		val, _ := view.Get(walletID)
 		if val == nil {
-			log.Printf("%s not found!", walletID)
+			//log.Printf("%s not found!", walletID)
 			respondWithJSON(w, http.StatusOK, response)
 			return
 		}

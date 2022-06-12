@@ -63,7 +63,7 @@ func Run(ctx context.Context, brokers []string) func() error {
 				}
 				ctx.SetValue(c)
 
-				// check if sender is a spammer
+				// check if deposit has been above threshold
 				if detectSpammer(ctx, c) {
 					ctx.Emit(flagger.Stream, ctx.Key(), &pb.FlagEvent{FlagRemoved: false, RollingPeriodStartUnix: c.RollingPeriodStartUnix})
 				} else {
