@@ -11,11 +11,13 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/dinorain/depositaja/collector"
+	"github.com/dinorain/depositaja/flagger"
 )
 
 var (
 	brokers      = []string{"localhost:9092"}
 	runCollector = flag.Bool("collector", false, "run collector processor")
+	runFlagger   = flag.Bool("flagger", false, "run flagger processor")
 )
 
 func main() {
@@ -26,6 +28,10 @@ func main() {
 	if *runCollector {
 		log.Println("starting collector")
 		grp.Go(collector.Run(ctx, brokers))
+	}
+	if *runFlagger {
+		log.Println("starting flagger")
+		grp.Go(flagger.Run(ctx, brokers))
 	}
 
 	// Wait for SIGINT/SIGTERM
