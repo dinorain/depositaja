@@ -2,7 +2,10 @@ module github.com/dinorain/depositaja
 
 go 1.17
 
-require github.com/lovoo/goka v1.1.2
+require (
+	github.com/lovoo/goka v1.1.2
+	google.golang.org/protobuf v1.28.0
+)
 
 require (
 	github.com/Shopify/sarama v1.34.1 // indirect
