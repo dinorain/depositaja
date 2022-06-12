@@ -91,7 +91,7 @@ func collect(ctx goka.Context, msg interface{}) {
 The `ctx` is scoped with the key of the input message -- remember we used the receiver as key in the emitter.
 With `ctx.Value()` we fetch the table value for that key.
 In this processor, the value is a slice of messages.
-We then append the received message and cap the length of the slice with the constant `maxMessages`, which is 5.
+We then append the received message and cap the length of the slice with the constant `maxAmount`, which is 10000.
 Finally, we store the value back in the table with `ctx.SetValue()`.
 
 
@@ -213,7 +213,7 @@ For every message received from `DepositStream`, we first get the value for the 
 `DepositStream` has the sender as key, so we add amount `c.Amount` and store back in the group table with `ctx.SetValue()`.
 Next, we call `detectSpammer(ctx, c)`, which will check whether sent rate is higher than a threshold.
 
-Next, we check whether the user is a spammer with the following function.
+Next, we check whether the wallet goes above the threshold with the following function.
 
 ### Group graph
 Finally, we define the complete group as follows:
