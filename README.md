@@ -91,7 +91,6 @@ func collect(ctx goka.Context, msg interface{}) {
 The `ctx` is scoped with the key of the input message -- remember we used the receiver as key in the emitter.
 With `ctx.Value()` we fetch the table value for that key.
 In this processor, the value is a slice of messages.
-We then append the received message and cap the length of the slice with the constant `maxAmount`, which is 10000.
 Finally, we store the value back in the table with `ctx.SetValue()`.
 
 
