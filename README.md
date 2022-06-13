@@ -21,7 +21,7 @@ To run the project, you can follow [this](https://github.com/dinorain/depositaja
 Goka provides three components to build systems: emitters, processors, and views.
 The following figure depicts the design used in this project, using those three components together with Kafka and the endpoints.
 
-![Architecture](figs/arch20220613.jpg)
+![Architecture](figs/arch20220613-1.jpg)
 
 ### Deposit endpoint
 
