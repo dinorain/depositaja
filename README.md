@@ -130,7 +130,7 @@ func check(view *goka.View, flaggerView *goka.View) func(w http.ResponseWriter, 
 }
 ```
 
-When creating the view, it is configured to watch the `collector.Table` and use `depositaja.DepositListCodec` to decode table values.
+When creating the view, it is configured to watch the `collector.Table` and use `depositaja.DepositListCodec` to decode table values. Moreover, we also configure it to watch the `flagger.Table` for reading above-threshold flag purpose.
 
 ```go
 view, _ := goka.NewView(
@@ -138,7 +138,12 @@ view, _ := goka.NewView(
 	collector.Table,
 	new(depositaja.DepositListCodec),
 )
-router.HandleFunc("/check/{wallet_id}", feed(view)).Methods("GET")
+flaggerView, _ := goka.NewView(
+    brokers, 
+    flagger.Table, 
+    new(flagger.FlagValueCodec),
+)
+router.HandleFunc("/check/{wallet_id}", check(view, flaggerView)).Methods("GET")
 ```
 
 `DepositListCodec` simply encodes and decodes the message of `DepositList` into and from protocol buffer data.
