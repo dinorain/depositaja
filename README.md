@@ -147,7 +147,7 @@ router.HandleFunc("/check/{wallet_id}", check(view, flaggerView)).Methods("GET")
 ```
 
 `DepositListCodec` simply encodes and decodes the message of `DepositList` into and from 
-col buffer data.
+protocol buffer data.
 
 ### Flagging wallets
 
