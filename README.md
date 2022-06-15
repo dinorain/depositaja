@@ -58,7 +58,7 @@ We then configure the emitter to emit into the `DepositStream` topic by default 
 This is how the emitter is [created](service/service.go#L55):
 ```go
 emitter, err := goka.NewEmitter(brokers, stream, new(depositaja.DepositCodec))
-router.HandleFunc("/deposit", send(emitter)).Methods("POST")
+router.HandleFunc("/deposit", deposit(emitter)).Methods("POST")
 ```
 
 Note I am ignoring errors in this document for the sake of readability.
