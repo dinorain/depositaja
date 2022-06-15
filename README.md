@@ -219,7 +219,7 @@ func getValue(ctx goka.Context) *pb.Counter {
 ```
 
 For every message received from `DepositStream`, we first get the value for the key or create a new `Counter` protocol buffer object.
-`DepositStream` has the sender as key, so we add amount `c.Amount` and store back in the group table with `ctx.SetValue()`.
+`DepositStream` has the sender as key, so we add amount `c.Received` and store back in the group table with `ctx.SetValue()`.
 Next, we call `detectSpammer(ctx, c)`, which will check whether sent rate is higher than a threshold.
 
 Next, we check whether the wallet goes above the threshold with the following function.
