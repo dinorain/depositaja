@@ -109,7 +109,7 @@ p, _ := goka.NewProcessor(brokers, g)
 When Dustin wants to check his wallet balance, he requests that from the check endpoint.
 For example:
 ```
-$ curl localhost:8080/0x1a3565a67721b6ab46fB11d5CF33A72D871aEbA3/feed
+$ curl localhost:8080/check/0x1a3565a67721b6ab46fB11d5CF33A72D871aEbA3
 {
 	"wallet_id": "0x1a3565a67721b6ab46fB11d5CF33A72D871aEbA3",
 	"balance": 2000,
