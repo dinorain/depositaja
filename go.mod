@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/gorilla/mux v1.8.0
 	github.com/lovoo/goka v1.1.2
+	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	google.golang.org/protobuf v1.28.0
 )
 
@@ -31,5 +32,4 @@ require (
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
-	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a // indirect
 )

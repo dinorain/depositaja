@@ -6,7 +6,7 @@ import (
 	"github.com/lovoo/goka"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/dinorain/depositaja/pb"
+	"github.com/dinorain/depositaja/proto/pb"
 )
 
 var (

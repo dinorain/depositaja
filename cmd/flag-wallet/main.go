@@ -8,7 +8,7 @@ import (
 	"github.com/lovoo/goka"
 
 	"github.com/dinorain/depositaja/flagger"
-	"github.com/dinorain/depositaja/pb"
+	"github.com/dinorain/depositaja/proto/pb"
 )
 
 var (

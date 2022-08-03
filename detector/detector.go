@@ -9,7 +9,7 @@ import (
 
 	"github.com/dinorain/depositaja"
 	"github.com/dinorain/depositaja/flagger"
-	"github.com/dinorain/depositaja/pb"
+	"github.com/dinorain/depositaja/proto/pb"
 )
 
 const (
